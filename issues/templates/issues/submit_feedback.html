@@ -1,0 +1,18 @@
+{% extends 'issues/base.html' %}
+
+{% block content %}
+
+    {% if existing_feedback %}
+        <p><strong>Thanks for the feedback!</strong></p>
+    {% else %}
+    <h2>Submit Feedback for Issue</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit Feedback</button>
+        </form>
+    {% endif %}
+    
+    <a href="{% url 'issue_list' %}">Back to Issues</a>
+{% endblock %}
+

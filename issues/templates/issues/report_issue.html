@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electricity Issue Reporting</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'issue_list' %}">Electricity Issues</a>
+            <div>
+                {% if user.is_authenticated %}
+                    <a class="btn btn-light" href="{% url 'report_issue' %}">Report Issue</a>
+                    <a class="btn btn-danger" href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                    <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
+                    <a class="btn btn-secondary" href="{% url 'register' %}">Register</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <div class="container d-flex justify-content-center mt-4">
+        <div class="report-box p-4 shadow-lg rounded bg-white">
+            <h2 class="text-center mb-3 text-warning">Report an Electricity Issue</h2>
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <table class="table table-borderless">
+                    <tr>
+                        <td>Issue Type</td>
+                        <td>{{ form.issue_type }}</td>
+                    </tr>
+                    <tr>
+                        <td>Location</td>
+                        <td>{{ form.location }}</td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td>{{ form.description }}</td>
+                    </tr>
+                    <tr>
+                        <td>Image</td>
+                        <td>{{ form.image }}</td>
+                    </tr>
+                </table>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-warning">Submit Report</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
